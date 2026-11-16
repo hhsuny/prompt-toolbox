@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>15 个常用 Prompt 工具箱</title>
+<title>22 个常用 Prompt 工具箱</title>
 <style>
 :root{--bg:#f5f6f8;--panel:#fff;--ink:#17202a;--muted:#6b7280;--line:#e5e7eb;--accent:#1565d8;--accent-soft:#eaf2ff;--dark:#0f1b2d;--shadow:0 8px 30px rgba(15,27,45,.08)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
@@ -13,7 +13,7 @@ button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh}.hero{back
 </head>
 <body>
 <div class="app">
-<header class="hero"><div class="hero-inner"><div class="eyebrow"><i></i>AI 使用方法 · Prompt 工具箱</div><h1>15 个常用 Prompt</h1><p>把问题问清楚、把知识学明白、把复杂问题拆开、把选择变成实验，也更认真地认识自己。开发时还可以让 Agent 帮你排查故障、复盘返工。每条都能单独复制使用，把【】里的内容换成你的信息即可。</p><div class="stats"><span class="stat">6 个使用场景</span><span class="stat">15 条可复制提示词</span><span class="stat">无需安装 Skill</span><span class="stat">建议附上原始材料</span></div></div></header>
+<header class="hero"><div class="hero-inner"><div class="eyebrow"><i></i>AI 使用方法 · Prompt 工具箱</div><h1>22 个常用 Prompt</h1><p>把问题问清楚、把知识学明白、把复杂问题拆开、把选择变成实验，也更认真地认识自己。开发时还可以让 Agent 帮你排查故障、复盘返工。每条都能单独复制使用，把【】里的内容换成你的信息即可。</p><div class="stats"><span class="stat">6 个使用场景</span><span class="stat">22 条可复制提示词</span><span class="stat">无需安装 Skill</span><span class="stat">建议附上原始材料</span></div></div></header>
 <main class="shell"><div class="toolbar"><div class="search"><input id="search" type="search" placeholder="搜索名称、用途或关键词…"><span>⌕</span></div><div id="filters" class="filters"></div><button id="copyAll" class="copy-all">复制当前结果</button></div><div class="layout"><aside class="toc"><h2>目录</h2><div id="toc"></div></aside><div id="content"></div></div><div id="empty" class="empty">没有找到匹配的提示词，换个关键词试试。</div><p class="footnote">使用建议：长对话类提示词（如“挖掘隐藏天赋”“人生设计术”）需要耐心完成多轮问答；研究类提示词应要求 AI 联网并核对来源；所有结论都应结合你的现实情况判断。</p></main>
 </div>
 <script>
@@ -297,17 +297,25 @@ const prompts=[
 ## 开始
 请用温暖、专业、有共情力的语言开场。先解释这套方法的基本思路、预计需要的时间和希望帮用户达成的目标。告诉用户，他无需先想清楚自己热爱什么，我们会在行动、对话与反馈里慢慢把它找出来。然后进入第一个问题。`},
 
-{id:'agent-root-cause',cat:'Agent 开发',title:'查根因并按原场景验证',summary:'适合修过的故障又出现，或问题总在重启、更新后发生时。让 Agent 找出触发条件，修完后按原场景再试一次。',chips:['故障排查','复现问题','修复验证'],prompt:String.raw`遇到的问题是【描述现象、何时出现，以及已经试过的办法】。
+{id:'agent-root-cause',cat:'Agent 开发',title:'查根因并修复',summary:'故障反复出现时用，附上报错、出现条件和已经试过的办法。',chips:['故障排查','根因修复'],prompt:String.raw`从第一性原理出发，找到最本质原因，修复一下。`},
 
-先查实际状态，尽量复现，找出触发条件。给我看哪条证据能解释这个现象。确认原因后，在当前范围内修复，再按原场景试一次。告诉我验证结果和还有哪些条件没测到。`},
+{id:'agent-three-options',cat:'Agent 开发',title:'先问清偏好，再给三版',summary:'需求或风格还没定时用，先给 Agent 一个大致目标，再回答它问的偏好。',chips:['需求澄清','方案设计'],prompt:String.raw`先问一些不清晰的问题，对齐我的喜好，然后再出3版方案。`},
 
-{id:'agent-reframe',cat:'Agent 开发',title:'重新确认要解决的问题',summary:'适合排查已经卡住，或准备按一个尚未验证的判断做较大改动时。让 Agent 先确认真正的目标，再检查现有证据是否支持这个方向。',chips:['核对假设','明确目标','排查方向'],prompt:String.raw`我遇到的是【描述现象】，目前的判断或想做的改动是【填写你的判断或做法】。
+{id:'agent-reframe',cat:'Agent 开发',title:'重新确认要解决的问题',summary:'排查卡住或准备做较大改动时用，把遇到的现象和你原本的判断一起发给 Agent。',chips:['核对假设','明确目标'],prompt:String.raw`不要默认我提出的问题定义就是正确的。你先分析我真正想解决的底层需求，判断我有没有把症状误认为原因、把手段误认为目标。如果存在更值得解决的问题，直接指出来`},
 
-先确认我真正想达到的结果，再用现有证据核对我的判断。检查我有没有把症状当成原因，或者把一种做法当成目标。有疑点就直接指出，说明依据和怎么验证。能在当前范围内查清的，接着查。`},
+{id:'agent-downstream-impact',cat:'Agent 开发',title:'推演改动的连带影响',summary:'准备改公共模块、数据结构或用户流程时用，附上改动草案，让 Agent 顺着依赖往下查。',chips:['影响分析','维护成本'],prompt:String.raw`不要只考虑这个改动产生的直接效果。继续推演它的二阶、三阶影响，尤其关注对其他模块、用户行为、系统复杂度和长期维护成本的潜在影响。`},
 
-{id:'agent-retrospective',cat:'Agent 开发',title:'复盘重复故障和返工',summary:'适合做完一轮开发，或同类 Bug、回滚和返工反复出现时。找出背后的共同原因，提出能防止复发的项目规则或自动检查。',chips:['开发复盘','重复返工','预防复发'],prompt:String.raw`复盘范围是【最近几天、一个迭代或一组任务】。查一下这段时间的 Bug、返工、回滚和重复修改，挑出有记录支撑的共性问题。
+{id:'agent-cross-domain',cat:'Agent 开发',title:'从其他领域找解法',summary:'现有方案都卡在同一个地方时用，说清卡点和约束，让 Agent 找能借鉴的做法。',chips:['跨领域类比','寻找解法'],prompt:String.raw`其他领域里有没有类似的方案，用跨领域的方式全面思考，找到最优解。`},
 
-说清哪些问题出于同一个原因、有什么证据，以及改哪一处最能减少重复返工。结合项目现有做法，给出能执行的改进。适合沉淀成规则或自动检查的，写出具体内容。`}
+{id:'agent-challenge-plan',cat:'Agent 开发',title:'给当前方案找反例',summary:'快选定一个代价较大的方案时用，附上当前方案和判断依据，让 Agent 找反例。',chips:['反证','边界情况'],prompt:String.raw`先假设你当前认为最合理的方案是错误的。站在最强反对者的角度，寻找能够推翻它的证据、反例和边界情况。然后重新评估方案，看看有没有更好的解法。`},
+
+{id:'agent-git-history',cat:'Agent 开发',title:'从 Git 历史追查设计缘由',summary:'接手旧项目或准备清理历史代码时用，让 Agent 读取仓库提交和关键 PR。',chips:['Git 历史','技术债'],prompt:String.raw`深入分析整个代码库的Git历史、关键PR和架构演变过程。找出哪些设计是有意为之，哪些是历史遗留，哪些是为了解决已经不存在的问题而引入的。识别可以安全移除的历史包袱。`},
+
+{id:'agent-handoff-review',cat:'Agent 开发',title:'从接手者视角检查代码',summary:'准备交接或想让项目更容易上手时用，把仓库和项目入口交给 Agent 看。',chips:['项目交接','代码可读性'],prompt:String.raw`假设明天有一个完全不了解项目、但是能力很强的工程师来接手。请评估他理解整个项目需要付出的认知成本，找出那些命名混乱、抽象过度、职责不清晰、需要大量上下文才能理解的代码，并提出简化方案。`},
+
+{id:'agent-pr-bottlenecks',cat:'Agent 开发',title:'找出最慢的 PR',summary:'怀疑近期 PR 存在瓶颈时用，填上天数，再说清要看合并耗时还是运行性能。',chips:['PR 分析','定位瓶颈'],prompt:String.raw`全面分析最近XX天里的所有的PR，找出最慢的那几个，看看有没有导致卡顿、可以优化的地方。`},
+
+{id:'agent-retrospective',cat:'Agent 开发',title:'复盘重复故障和返工',summary:'做完一轮开发或同类问题反复出现时用，填上复盘周期，附上 Bug、返工和回滚记录。',chips:['开发复盘','预防复发'],prompt:String.raw`全面复盘最近XX时间的 Bug、返工、回滚和重复修改。不要只统计发生了什么，要分析这些问题背后有没有共同的根因。把能够预防的共性问题沉淀成项目规则、自动化或者Skill，避免我们反复支付同样的成本。`}
 ];
 const catInfo={
  '问清问题':'先把真正的问题找出来，再进入学习、分析和行动。',
@@ -315,7 +323,7 @@ const catInfo={
  '解决问题':'用互补视角、底层事实和跨行业机制找到解法。',
  '决策':'把“纠结”变成清晰论证，或变成可验证的最小实验。',
  '认识自己':'从经历和反馈中认识能力，并设计下一阶段的人生。',
- 'Agent 开发':'排查反复故障、核对问题定义、复盘开发返工。'
+ 'Agent 开发':'排查故障、比较方案、审查代码和复盘返工。'
 };
 const cats=[...new Set(prompts.map(p=>p.cat))];
 const filters=document.querySelector('#filters'),content=document.querySelector('#content'),toc=document.querySelector('#toc'),empty=document.querySelector('#empty'),search=document.querySelector('#search');
