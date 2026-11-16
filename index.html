@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>12 个常用 Prompt 工具箱</title>
+<title>15 个常用 Prompt 工具箱</title>
 <style>
 :root{--bg:#f5f6f8;--panel:#fff;--ink:#17202a;--muted:#6b7280;--line:#e5e7eb;--accent:#1565d8;--accent-soft:#eaf2ff;--dark:#0f1b2d;--shadow:0 8px 30px rgba(15,27,45,.08)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
@@ -13,7 +13,7 @@ button,input{font:inherit}button{cursor:pointer}.app{min-height:100vh}.hero{back
 </head>
 <body>
 <div class="app">
-<header class="hero"><div class="hero-inner"><div class="eyebrow"><i></i>AI 使用方法 · Prompt 工具箱</div><h1>12 个常用 Prompt</h1><p>把问题问清楚、把知识学明白、把复杂问题拆开、把选择变成实验，也更认真地认识自己。每条都能单独复制使用，把【】里的内容换成你的信息即可。</p><div class="stats"><span class="stat">5 个使用场景</span><span class="stat">12 条可复制提示词</span><span class="stat">无需安装 Skill</span><span class="stat">建议附上原始材料</span></div></div></header>
+<header class="hero"><div class="hero-inner"><div class="eyebrow"><i></i>AI 使用方法 · Prompt 工具箱</div><h1>15 个常用 Prompt</h1><p>把问题问清楚、把知识学明白、把复杂问题拆开、把选择变成实验，也更认真地认识自己。开发时还可以让 Agent 帮你排查故障、复盘返工。每条都能单独复制使用，把【】里的内容换成你的信息即可。</p><div class="stats"><span class="stat">6 个使用场景</span><span class="stat">15 条可复制提示词</span><span class="stat">无需安装 Skill</span><span class="stat">建议附上原始材料</span></div></div></header>
 <main class="shell"><div class="toolbar"><div class="search"><input id="search" type="search" placeholder="搜索名称、用途或关键词…"><span>⌕</span></div><div id="filters" class="filters"></div><button id="copyAll" class="copy-all">复制当前结果</button></div><div class="layout"><aside class="toc"><h2>目录</h2><div id="toc"></div></aside><div id="content"></div></div><div id="empty" class="empty">没有找到匹配的提示词，换个关键词试试。</div><p class="footnote">使用建议：长对话类提示词（如“挖掘隐藏天赋”“人生设计术”）需要耐心完成多轮问答；研究类提示词应要求 AI 联网并核对来源；所有结论都应结合你的现实情况判断。</p></main>
 </div>
 <script>
@@ -295,14 +295,27 @@ const prompts=[
 8. “失败免疫”：提醒用户，这三个版本都可以先试再调。原型即使走不通，也会为下一步留下有用信息。
 
 ## 开始
-请用温暖、专业、有共情力的语言开场。先解释这套方法的基本思路、预计需要的时间和希望帮用户达成的目标。告诉用户，他无需先想清楚自己热爱什么，我们会在行动、对话与反馈里慢慢把它找出来。然后进入第一个问题。`}
+请用温暖、专业、有共情力的语言开场。先解释这套方法的基本思路、预计需要的时间和希望帮用户达成的目标。告诉用户，他无需先想清楚自己热爱什么，我们会在行动、对话与反馈里慢慢把它找出来。然后进入第一个问题。`},
+
+{id:'agent-root-cause',cat:'Agent 开发',title:'查根因并按原场景验证',summary:'适合修过的故障又出现，或问题总在重启、更新后发生时。让 Agent 找出触发条件，修完后按原场景再试一次。',chips:['故障排查','复现问题','修复验证'],prompt:String.raw`遇到的问题是【描述现象、何时出现，以及已经试过的办法】。
+
+先查实际状态，尽量复现，找出触发条件。给我看哪条证据能解释这个现象。确认原因后，在当前范围内修复，再按原场景试一次。告诉我验证结果和还有哪些条件没测到。`},
+
+{id:'agent-reframe',cat:'Agent 开发',title:'重新确认要解决的问题',summary:'适合排查已经卡住，或准备按一个尚未验证的判断做较大改动时。让 Agent 先确认真正的目标，再检查现有证据是否支持这个方向。',chips:['核对假设','明确目标','排查方向'],prompt:String.raw`我遇到的是【描述现象】，目前的判断或想做的改动是【填写你的判断或做法】。
+
+先确认我真正想达到的结果，再用现有证据核对我的判断。检查我有没有把症状当成原因，或者把一种做法当成目标。有疑点就直接指出，说明依据和怎么验证。能在当前范围内查清的，接着查。`},
+
+{id:'agent-retrospective',cat:'Agent 开发',title:'复盘重复故障和返工',summary:'适合做完一轮开发，或同类 Bug、回滚和返工反复出现时。找出背后的共同原因，提出能防止复发的项目规则或自动检查。',chips:['开发复盘','重复返工','预防复发'],prompt:String.raw`复盘范围是【最近几天、一个迭代或一组任务】。查一下这段时间的 Bug、返工、回滚和重复修改，挑出有记录支撑的共性问题。
+
+说清哪些问题出于同一个原因、有什么证据，以及改哪一处最能减少重复返工。结合项目现有做法，给出能执行的改进。适合沉淀成规则或自动检查的，写出具体内容。`}
 ];
 const catInfo={
  '问清问题':'先把真正的问题找出来，再进入学习、分析和行动。',
  '学习':'从听懂概念到拆解案例、研究领域、核查真假。',
  '解决问题':'用互补视角、底层事实和跨行业机制找到解法。',
  '决策':'把“纠结”变成清晰论证，或变成可验证的最小实验。',
- '认识自己':'从经历和反馈中认识能力，并设计下一阶段的人生。'
+ '认识自己':'从经历和反馈中认识能力，并设计下一阶段的人生。',
+ 'Agent 开发':'排查反复故障、核对问题定义、复盘开发返工。'
 };
 const cats=[...new Set(prompts.map(p=>p.cat))];
 const filters=document.querySelector('#filters'),content=document.querySelector('#content'),toc=document.querySelector('#toc'),empty=document.querySelector('#empty'),search=document.querySelector('#search');
